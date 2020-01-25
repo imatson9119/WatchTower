@@ -11,13 +11,15 @@ import {MatInputModule} from '@angular/material/input';
 import { AirQualityComponent } from './air-quality/air-quality.component';
 import { FormsModule } from '@angular/forms'
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { AutomcompleteComponent } from './automcomplete/automcomplete.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    AirQualityComponent
+    AirQualityComponent,
+    AutomcompleteComponent
   ],
   imports: [
     BrowserModule,
