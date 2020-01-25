@@ -3,7 +3,7 @@
         <i class="material-icons" (click)='onSearch()'>
             search
             </i>
-        <input [(ngModel)] = "this.currentAddress" placeholder="Search an address">
+        <AutocompleteComponent class="input" [(ngModel)] = "this.currentAddress" (setAddress)="getAddress($event)" adressType="geocode"></AutocompleteComponent>
     </div>
     <div class=row>
         <div class ='card'>
