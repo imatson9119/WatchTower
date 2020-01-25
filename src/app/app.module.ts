@@ -8,12 +8,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import {MatInputModule} from '@angular/material/input';
+import { AirQualityComponent } from './air-quality/air-quality.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    AirQualityComponent
   ],
   imports: [
     BrowserModule,
