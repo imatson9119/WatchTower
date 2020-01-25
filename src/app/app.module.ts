@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import {MatInputModule} from '@angular/material/input';
 import { AirQualityComponent } from './air-quality/air-quality.component';
+import { FormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AirQualityComponent } from './air-quality/air-quality.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
