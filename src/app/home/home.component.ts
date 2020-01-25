@@ -42,7 +42,11 @@ export class HomeComponent implements OnInit {
           console.log(value.data.fires);
           fireSub.unsubscribe();
         });
-
+        
+        let weatherSub = this.http.get("https://api.climacell.co/v3/weather/historical/station?start_time=2020-01-24T00:00:00Z&end_time=2020-01-25T00:00:00Z&lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=precipitation&apikey=kKGWvhbvo24tF2BELO9ErG2j1PH4YLon")
+        .subscribe((value : any) => {
+          weatherSub.unsubscribe();
+        });
         addressSub.unsubscribe();
       });
   }
