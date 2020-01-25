@@ -34,7 +34,17 @@ $opacity : .45;
     font-size: 40px;
     font-weight: lighter;
 }
+.middle img{
+    height: 69px;
+}
 .middle .p2{
     font-weight: bold;
     color: rgb(255, 183, 50);
+}
+@media only screen and (max-width: 800px){
+    .navbar{
+        height: 28vh;
+    }
+    .middle{font-size: 30px;}
+    .middle img{height: 50px;}
 }
