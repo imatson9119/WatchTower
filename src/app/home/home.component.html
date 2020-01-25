@@ -3,6 +3,7 @@
         <i class="material-icons" (click)='onSearch()'>
             search
             </i>
-        <input placeholder="Search an address">
+        <input [(ngModel)] = "this.currentAddress" placeholder="Search an address">
     </div>
+
 </div>
