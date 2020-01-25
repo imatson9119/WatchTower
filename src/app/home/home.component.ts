@@ -20,12 +20,8 @@ export class HomeComponent implements OnInit {
     //GOOGLE GEOLOCATION API KEY: AIzaSyDxgXIfTSPLslewg0rU7ilnN0UxI1AXoek
     //TODO: Get latitude and longitude from address
 
-    let addressSub = this.http.get("https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyDxgXIfTSPLslewg0rU7ilnN0UxI1AXoek")
+    let addressSub = this.http.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + this.currentAddress.trim().replace(' ', '+') + "&key=AIzaSyDxgXIfTSPLslewg0rU7ilnN0UxI1AXoek")
       .subscribe((value : any) => {
-        let searchAddress = this.currentAddress;
-        searchAddress = searchAddress.trim();
-        searchAddress = searchAddress.replace(' ', '+');
-
         console.log(value);
         console.log(value.results[0].geometry.location.lat);
         console.log(value.results[0].geometry.location.lng);
