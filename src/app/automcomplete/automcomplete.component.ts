@@ -1,6 +1,6 @@
 import { Component, ViewChild, EventEmitter, Output, OnInit, AfterViewInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { googlemaps } from '@types/googlemaps';
+import { } from '@types/googlemaps';
 
 @Component({
     selector: 'AutocompleteComponent',
@@ -12,7 +12,7 @@ import { googlemaps } from '@types/googlemaps';
         >
     `,
 })
-export class AutocompleteComponent implements OnInit, AfterViewInit {
+export class AutomcompleteComponent implements OnInit, AfterViewInit {
     @Input() adressType: string;
     @Output() setAddress: EventEmitter<any> = new EventEmitter();
     @ViewChild('addresstext', null) addresstext: any;
