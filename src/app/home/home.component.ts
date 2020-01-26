@@ -156,7 +156,7 @@ export class HomeComponent implements OnInit {
         
         const mapProperties = {
           center: new google.maps.LatLng(lat, lng),
-          zoom: 14,
+          zoom: 8,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         this.dataService.mapProperties = mapProperties;
