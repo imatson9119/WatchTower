@@ -1,1 +1,16 @@
-<p>precipitation works!</p>
+<div class = main-container>
+    <ngx-charts-area-chart
+  [scheme]="colorScheme"
+  [view] = "view"
+  [legend]="false"
+  [showXAxisLabel]="false"
+  [showYAxisLabel]="true"
+  [xAxis]="true"
+  [yAxis]="yAxis"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="'Inches'"
+  [timeline]="timeline"
+  [results]="multi"
+  (select)="onSelect($event)">
+    </ngx-charts-area-chart>
+</div>

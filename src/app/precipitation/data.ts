@@ -1,6 +1,6 @@
 export var multi = [
     {
-      "name": "Germany",
+      "name": "Precipitation",
       "series": [
         {
           "name": "1990",
