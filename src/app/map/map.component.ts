@@ -55,10 +55,10 @@ export class MapComponent implements OnInit {
     for (var i = 0; i < this.dataService.nearbyFires.length; i++) {
       var fire = this.dataService.nearbyFires[i];
       var marker = new google.maps.Marker({
-        position: {lat: parseFloat(fire[0]), lng: parseFloat(fire[1])},
+        position: {lat: parseFloat(fire.position.lat), lng: parseFloat(fire.position.lon)},
         map: this.map,
-        //icon: image,
-        //shape: shape,
+        icon: image,
+        shape: shape,
         title: "check",
         zIndex: 35
       });
