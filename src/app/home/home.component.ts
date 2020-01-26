@@ -57,11 +57,18 @@ export class HomeComponent implements OnInit {
         let yesterday = new Date((now.valueOf() - one.valueOf()));
         console.log(yesterday.toJSON());
 
-        let weatherSub = this.http.get("https://api.climacell.co/v3/weather/historical/station?start_time=" + yesterday.toJSON() + "&end_time=" + now.toJSON() + "&lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=precipitation&apikey=kKGWvhbvo24tF2BELO9ErG2j1PH4YLon")
+        let pastWeatherSub = this.http.get("https://api.climacell.co/v3/weather/historical/station?start_time=" + yesterday.toJSON() + "&end_time=" + now.toJSON() + "&lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=precipitation&apikey=kKGWvhbvo24tF2BELO9ErG2j1PH4YLon")
         .subscribe((value : any) => {
           console.log(value);
-          weatherSub.unsubscribe();
+          pastWeatherSub.unsubscribe();
         });
+
+        let currentWeatherSub = this.http.get("https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=kKGWvhbvo24tF2BELO9ErG2j1PH4YLon")
+        .subscribe((value : any) => {
+          console.log(value);
+          currentWeatherSub.unsubscribe();
+        });
+
         addressSub.unsubscribe();
       });
   }
