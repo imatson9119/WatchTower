@@ -45,7 +45,7 @@ export class MapComponent implements OnInit {
       });
 
       heatMap.setOptions({data:heatMapData,
-        radius:25,
+        radius:5,
         dissipating:false,
       });
       heatMap.setMap(this.map);
@@ -79,8 +79,8 @@ export class MapComponent implements OnInit {
       });
 
       heatMap.setOptions({data:heatMapData,
-        radius:5,
-        dissipating:false,
+        radius:10,
+        dissipating:true
       });
       heatMap.setMap(this.map);
 
