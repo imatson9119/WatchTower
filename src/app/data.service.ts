@@ -24,6 +24,7 @@ export class DataService {
       value: "25"
     }
   ];
+  roundedTemp = 25;
   aqMessage = "Excellent";
   setAirQualityColor(){
     let value = this.single[0].value;
