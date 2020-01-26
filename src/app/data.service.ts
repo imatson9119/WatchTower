@@ -749,6 +749,7 @@ export class DataService {
       value: "50"
     },
   ]
+  fireDistance = "100+";
   roundedHumidity = 50;
   roundedtRainFall = 100;
   roundedTemp = 25;

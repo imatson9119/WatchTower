@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { DataService } from '../data.service';
 import { MapComponent } from "../map/map.component";
+import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 
 
 
@@ -53,6 +54,18 @@ export class HomeComponent implements OnInit {
         .subscribe((value : any) => {
           console.log(value);
           console.log(value.data.fires);
+          if(value.data.fires.length < 1){
+            this.dataService.fireDistance = "100+";
+          }
+          else{
+            let min = 100
+            value.data.fires.forEach(element => {
+              if(element.position.distance.value < min){
+                min = element.position.distance.value;
+              }
+            });
+            this.dataService.fireDistance = "" + Math.round(min);
+          }
           fireSub.unsubscribe();
         });
         

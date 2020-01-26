@@ -79,3 +79,14 @@ $opacity : .45;
         justify-content: space-around;
     }
 }
+.fade-in.one {
+    -webkit-animation-delay: 0.1s;
+    -moz-animation-delay: 0,1s;
+    animation-delay: 0,1s;
+}
+
+.fade-in.two {
+    -webkit-animation-delay: .6s;
+    -moz-animation-delay:.6s;
+    animation-delay: .6s;
+}

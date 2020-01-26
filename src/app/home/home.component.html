@@ -5,17 +5,18 @@
             </i>
         <AutocompleteComponent style class="input" (setAddress)="getAddress($event)" addressType="geocode"></AutocompleteComponent>
     </div>
+    <app-nearest-fire class = 'fade-in one'></app-nearest-fire>
     <div class=row>
-        <div class ='card map' style = "width: 100%;height:auto;margin-bottom:10px;">
+        <div class ='card map fade-in two' style = "width: 100%;height:auto;margin-bottom:10px;">
             <div class = card-header>
                 <i class="material-icons">
-                    whatshot
+                    map
                 </i>
                 Fire Map
             </div>
             <app-map style="flex:1"></app-map>
         </div>
-        <div class ='card long'>
+        <div class ='card long fade-in three'>
             <div class = card-header>
                 <i class="material-icons">
                     filter_drama
@@ -24,7 +25,7 @@
             </div>
             <app-precipitation style="flex:1"></app-precipitation>
         </div>
-        <div class ='card'>
+        <div class ='card fade-in four'>
             <div class = card-header>
                 <i class="material-icons rainfall">
                     format_align_justify
@@ -33,7 +34,7 @@
             </div>
             <app-total-precipitation style="flex:1"></app-total-precipitation>
         </div>
-        <div class ='card'>
+        <div class ='card fade-in five'>
             <div class = card-header>
                 <i class="material-icons">
                     waves
@@ -42,7 +43,7 @@
             </div>
             <app-air-quality style="flex:1"></app-air-quality>
         </div>
-        <div class ='card'>
+        <div class ='card fade-in six'>
             <div class = card-header>
                 <i class="material-icons">
                     brightness_high
@@ -51,7 +52,7 @@
             </div>
             <app-temperature style="flex:1"></app-temperature>
         </div>
-        <div class ='card'>
+        <div class ='card fade-in seven'>
             <div class = card-header>
                 <i class="material-icons">
                     blur_on
