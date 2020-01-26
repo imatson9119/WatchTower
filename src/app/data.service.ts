@@ -760,6 +760,7 @@ export class DataService {
     zoom: 4,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
+  nearbyFires = [];
   updateTempColor(){
     
     

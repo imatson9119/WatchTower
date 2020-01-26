@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit {
         .subscribe((value : any) => {
           console.log(value);
           console.log(value.data.fires);
+          this.dataService.nearbyFires = value.data.fires;
           if(value.data.fires.length < 1){
             this.dataService.fireDistance = "100+";
           }
