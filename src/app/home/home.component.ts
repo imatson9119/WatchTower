@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
           this.dataService.single = [
             {
               "name": "Air Quality",
-              "value": value.data.indexes.baqi.aqi
+              "value": Math.max(value.data.indexes.baqi.aqi,10)
             }
           ];
           this.dataService.setAirQualityColor();
