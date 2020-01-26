@@ -60,7 +60,7 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
             var options = {
                 uri: baseUrl + queryString,
             };
-          
+            //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
             const result = await request.get(options);*/
             console.log(locations);
             // Database stuff - reference to database

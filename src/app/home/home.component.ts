@@ -99,6 +99,7 @@ export class HomeComponent implements OnInit {
           ];
           this.dataService.roundedTemp = Math.round(value.temp.value);
           this.dataService.updateTempColor();
+          console.log(value);
           currentWeatherSub.unsubscribe();
         });
 
