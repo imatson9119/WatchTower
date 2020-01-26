@@ -60,4 +60,9 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  getAddress(event) {
+    console.log(event.formatted_address);
+    this.currentAddress = event.formatted_address;
+  }
+
 }
