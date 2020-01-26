@@ -1,10 +1,12 @@
 <div class ='main-container'>
     <div class = left>
-        <div class = lupper>The closest fire is</div>
-        <div class = lmid>{{this.dataService.fireDistance}}</div>
-        <div class = llower>kilometers away.</div>
+        <div class = "lupper small">The closest fire is</div>
+        <div class = "lmid big" [ngStyle]="{'color': distanceColor}">{{this.dataService.fireDistance}}</div>
+        <div class = 'llower small'>kilometers away.</div>
     </div>
     <div class = right>
-
+        <div class = 'lupper small'>Fire index of</div>
+        <div class = 'lmid big' [ngStyle]="{'color': indexColor}">{{this.dataService.fireIndex}}</div>
+    
     </div>
 </div>

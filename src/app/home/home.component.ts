@@ -127,6 +127,7 @@ export class HomeComponent implements OnInit {
             },
           ];
           this.dataService.roundedHumidity = Math.round(value.humidity.value);
+          this.dataService.fireIndex = Math.round(value.fire_index.value);
           console.log(value);
           currentWeatherSub.unsubscribe();
         });
