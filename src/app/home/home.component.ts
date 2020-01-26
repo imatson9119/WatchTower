@@ -65,6 +65,13 @@ export class HomeComponent implements OnInit {
         .subscribe((value : any) => {
           console.log("Starting Fire Sub");
           this.dataService.nearbyFires = value.data.fires;
+          const mapProperties = {
+            center: new google.maps.LatLng(lat, lng),
+            zoom: 8,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+          this.dataService.mapProperties = mapProperties;
+          this.child.onRefresh();
           if(value.data.fires.length < 1){
             this.dataService.fireDistance = "100+";
           }
@@ -171,14 +178,6 @@ export class HomeComponent implements OnInit {
         this.cdr.detectChanges();
 
         addressSub.unsubscribe();
-        
-        const mapProperties = {
-          center: new google.maps.LatLng(lat, lng),
-          zoom: 8,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        this.dataService.mapProperties = mapProperties;
-        this.child.onRefresh();
 
       });
       loadingBar.classList.remove("expanded");
