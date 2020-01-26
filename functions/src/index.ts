@@ -16,7 +16,7 @@ admin.initializeApp();
 //  response.send("Hello from Firebase!");
 // });
 
-exports.sendMail = functions.https.onRequest((req : any, res : any) => {
+exports.batch1 = functions.https.onRequest((req : any, res : any) => {
     cors(req, res, () => {
         (async () => {
 
@@ -46,7 +46,56 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
             [-20.399, 144.218],
             [-25.872, 121.389],
             [-33.809, 127.64],
-            [-24.055, 114.084],
+            [-24.055, 114.084]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=MXLgd79Id1cMWNMyRxdP0M842qfwpGf3";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch2 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
             [-22.669, 134.213],
             [-28.896, 151.544],
             [-32.679, 153.265],
@@ -95,7 +144,56 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
             [-32.435, 147.174],
             [-30.598, 121.234],
             [-33.851, 123.987],
-            [-22.342, 144.346],
+            [-22.342, 144.346]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=MXLgd79Id1cMWNMyRxdP0M842qfwpGf3";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch3 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
             [-31.192, 147.943],
             [-21.996, 133.621],
             [-16.048, 140.186],
@@ -143,7 +241,56 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
             [-24.748, 135.441],
             [-24.362, 141.856],
             [-13.469, 122.718],
-            [-16.353, 123.729],
+            [-16.353, 123.729]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=MXLgd79Id1cMWNMyRxdP0M842qfwpGf3";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch4 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
             [-31.425, 136.058],
             [-36.528, 145.693],
             [-20.924, 130.304],
@@ -192,7 +339,56 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
             [-20.461, 129.504],
             [-34.876, 145.133],
             [-12.616, 125.055],
-            [-35.396, 137.252],
+            [-35.396, 137.252]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=MXLgd79Id1cMWNMyRxdP0M842qfwpGf3";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch5 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
             [-22.321, 115.329],
             [-33.179, 144.631],
             [-24.614, 138.584],
@@ -240,7 +436,56 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
             [-11.796, 125.963],
             [-30.79, 127.904],
             [-34.855, 137.676],
-            [-34.837, 136.221],
+            [-34.837, 136.221]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=MXLgd79Id1cMWNMyRxdP0M842qfwpGf3";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch6 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
             [-31.563, 144.425],
             [-22.25, 138.077],
             [-28.08, 150.837],
@@ -289,7 +534,56 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
             [-33.945, 129.855],
             [-21.769, 137.456],
             [-32.713, 120.047],
-            [-28.481, 150.177],
+            [-28.481, 150.177]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=MXLgd79Id1cMWNMyRxdP0M842qfwpGf3";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch7 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
             [-27.214, 130.103],
             [-28.588, 149.652],
             [-22.305, 133.862],
@@ -334,7 +628,56 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
             [-20.026, 153.472],
             [-17.738, 152.21],
             [-26.59, 137.357],
-            [-30.628, 125.226],
+            [-30.628, 125.226]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=MXLgd79Id1cMWNMyRxdP0M842qfwpGf3";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch8 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
             [-27.599, 121.34],
             [-34.548, 147.773],
             [-15.69, 132.745],
@@ -395,7 +738,56 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
             [-19.899, 119.263],
             [-30.768, 127.185],
             [-28.594, 132.218],
-            [-23.869, 150.65],
+            [-23.869, 150.65]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=MXLgd79Id1cMWNMyRxdP0M842qfwpGf3";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch9 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
             [-25.386, 121.709],
             [-28.506, 122.191],
             [-30.66, 118.681],
@@ -464,7 +856,56 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
             [-18.422, 126.445],
             [-21.062, 148.418],
             [-21.685, 113.938],
-            [-28.207, 126.669],
+            [-28.207, 126.669]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=MXLgd79Id1cMWNMyRxdP0M842qfwpGf3";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch10 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
             [-20.473, 140.024],
             [-21.239, 140.923],
             [-12.269, 149.528],
@@ -516,7 +957,56 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
             [-12.962, 128.133],
             [-31.927, 137.741],
             [-28.64, 140.469],
-            [-14.088, 125.724],
+            [-14.088, 125.724]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=MXLgd79Id1cMWNMyRxdP0M842qfwpGf3";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch11 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
             [-29.937, 117.844],
             [-32.156, 118.475],
             [-20.848, 143.377],
@@ -556,7 +1046,56 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
             [-27.932, 136.017],
             [-13.825, 130.384],
             [-30.12, 148.227],
-            [-31.186, 122.284],
+            [-31.186, 122.284]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=MXLgd79Id1cMWNMyRxdP0M842qfwpGf3";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch11 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
             [-37.937, 115.33],
             [-19.512, 143.709],
             [-23.418, 147.33],
@@ -608,7 +1147,56 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
             [-26.608, 123.708],
             [-16.089, 134.339],
             [-29.848, 118.082],
-            [-13.766, 142.884],
+            [-13.766, 142.884]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=MXLgd79Id1cMWNMyRxdP0M842qfwpGf3";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch12 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
             [-14.365, 153.159],
             [-38.688, 117.546],
             [-21.348, 134.158],
@@ -649,7 +1237,56 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
             [-31.166, 144.067],
             [-25.669, 139.867],
             [-27.645, 140.544],
-            [-17.476, 152.618],
+            [-17.476, 152.618]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=MXLgd79Id1cMWNMyRxdP0M842qfwpGf3";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch13 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
             [-15.765, 122.404],
             [-28.039, 130.197],
             [-22.897, 135.399],
@@ -723,7 +1360,7 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
 
                 //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
                 const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
-                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE";
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=MXLgd79Id1cMWNMyRxdP0M842qfwpGf3";
                 //var options = {
                 //    uri: baseUrl + queryString,
                 //};
