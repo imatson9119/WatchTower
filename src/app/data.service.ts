@@ -788,6 +788,7 @@ export class DataService {
       this.indexColor = "rgb(" + (90 + (65/25)*this.fireIndex) + ",155,90)";
     }
   }
+  nearbyFires = [];
   updateTempColor(){
     
     
