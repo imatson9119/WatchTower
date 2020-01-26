@@ -22,6 +22,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database'
 import { environment } from 'src/environments/environment';
 import { NearestFireComponent } from './nearest-fire/nearest-fire.component';
 import { InfoComponent } from './info/info.component';
+import { DataService } from './data.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { InfoComponent } from './info/info.component';
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

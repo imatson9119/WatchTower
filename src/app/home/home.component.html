@@ -5,6 +5,7 @@
             </i>
         <AutocompleteComponent style class="input" (setAddress)="getAddress($event)" addressType="geocode"></AutocompleteComponent>
     </div>
+    {{this.dataService.loading}}%
     <div class=row>
         <div class ='card map fade-in one' style = "width: 100%;height:auto;margin-bottom:10px;">
             <div class = card-header>

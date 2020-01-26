@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { DataService } from '../data.service';
 import { MapComponent } from "../map/map.component";
@@ -9,7 +9,8 @@ import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_c
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
 
@@ -17,13 +18,15 @@ export class HomeComponent implements OnInit {
 
   @ViewChild(MapComponent, {static: true}) child;
 
-  constructor(public http : HttpClient, public dataService: DataService) { }
+  constructor(public http : HttpClient, public dataService: DataService, public cdr : ChangeDetectorRef) { }
 
   ngOnInit() {
     this.onSearch();
   }
 
   onSearch() {
+    console.log("Called search");
+    this.dataService.loading = 0;
     //GOOGLE GEOLOCATION API KEY: AIzaSyDxgXIfTSPLslewg0rU7ilnN0UxI1AXoek
     //CLIMACELL API KEY: kKGWvhbvo24tF2BELO9ErG2j1PH4YLon
     //TODO: Get latitude and longitude from address
@@ -32,14 +35,13 @@ export class HomeComponent implements OnInit {
 
     let addressSub = this.http.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + this.currentAddress.trim().replace(' ', '+') + "&key=AIzaSyDxgXIfTSPLslewg0rU7ilnN0UxI1AXoek")
       .subscribe((value : any) => {
-        console.log(value);
-        console.log(value.results[0].geometry.location.lat);
-        console.log(value.results[0].geometry.location.lng);
+        console.log("Starting Address Sub");
         let lat = value.results[0].geometry.location.lat;
         let lng = value.results[0].geometry.location.lng;
 
         let airQualitySub = this.http.get("https://api.breezometer.com/air-quality/v2/current-conditions?lat=" + lat + "&lon=" + lng + "&key=639074e9fc5b4dd492f3b559390184d3")
         .subscribe((value : any) => {
+          console.log("Starting AQ Sub");
           this.dataService.single = [
             {
               "name": "Air Quality",
@@ -47,13 +49,15 @@ export class HomeComponent implements OnInit {
             }
           ];
           this.dataService.setAirQualityColor();
+          this.dataService.loading+=20;
+          console.log("Finished AQ Sub");
+          this.cdr.detectChanges();
           airQualitySub.unsubscribe();
         });
     
         let fireSub = this.http.get("https://api.breezometer.com/fires/v1/current-conditions?lat=" + lat + "&lon=" + lng + "&key=639074e9fc5b4dd492f3b559390184d3&radius=100")
         .subscribe((value : any) => {
-          console.log(value);
-          console.log(value.data.fires);
+          console.log("Starting Fire Sub");
           this.dataService.nearbyFires = value.data.fires;
           if(value.data.fires.length < 1){
             this.dataService.fireDistance = "100+";
@@ -69,12 +73,15 @@ export class HomeComponent implements OnInit {
             
           }
           this.dataService.updateDistanceColor();
+          this.dataService.loading+=20;
+          console.log("Finished Fire Sub");
+          this.cdr.detectChanges();
+
           fireSub.unsubscribe();
         });
         
         let now = new Date();
         let one = new Date(86400000)
-        console.log(now.toJSON());
         let lastMonth = new Date((now.valueOf() - 30 * one.valueOf()));
         //console.log(yesterday.toJSON());
 
@@ -89,8 +96,7 @@ export class HomeComponent implements OnInit {
 
         let pastWeatherSub = this.http.get("https://insight.api.wdtinc.com/daily-precipitation/" + lat + "/" + lng + "?start=" + lastMonth.toJSON().substr(0, 10) + "&end=" + now.toJSON().substr(0,10), headerOptions)
         .subscribe((value : any) => {
-          console.log("PRECIP");
-          console.log(value.series);
+          console.log("Starting rain sub");
           let tRainFall = 0;
           let objs = [{
             "name" : "Precipitation",
@@ -106,11 +112,16 @@ export class HomeComponent implements OnInit {
           this.dataService.tRainfall = [{"name":"Total Rainfall","value":""+ tRainFall}]
           this.dataService.precip = objs;
           this.dataService.roundedtRainFall = Math.round(tRainFall);
+          this.dataService.loading+=20;
+          console.log("Ending Rain Sub");
+          this.cdr.detectChanges();
+
           pastWeatherSub.unsubscribe();
         });
 
         let currentWeatherSub = this.http.get("https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index,humidity&apikey=kKGWvhbvo24tF2BELO9ErG2j1PH4YLon")
         .subscribe((value : any) => {
+          console.log("Startin Weather Sub");
           this.dataService.temp = [
             {
               name: "Temperature (C)",
@@ -133,9 +144,13 @@ export class HomeComponent implements OnInit {
           this.dataService.fireIndex = Math.round(value.fire_index.value);
           this.dataService.updateIndexColor();
 
-          console.log(value);
+          this.dataService.loading+=20;
+          console.log("Ending Weather Sub");
           currentWeatherSub.unsubscribe();
         });
+        this.dataService.loading+=20;
+        console.log("Ending Address Sub");
+        this.cdr.detectChanges();
 
         addressSub.unsubscribe();
         
@@ -145,14 +160,12 @@ export class HomeComponent implements OnInit {
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         this.dataService.mapProperties = mapProperties;
-        console.log("Search Done");
         this.child.onRefresh();
 
       });
   }
 
   getAddress(event) {
-    console.log(event.formatted_address);
     this.currentAddress = event.formatted_address;
     this.onSearch();
   }

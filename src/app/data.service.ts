@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone, Inject } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -749,6 +749,7 @@ export class DataService {
       value: "50"
     },
   ]
+  loading = 0;
   fireIndex = 0;
   fireDistance = "100+";
   roundedHumidity = 50;
@@ -790,8 +791,6 @@ export class DataService {
   }
   nearbyFires = [];
   updateTempColor(){
-    
-    
     if(this.roundedTemp >= 22){
       let critValH = Math.max(0,150-7*(this.roundedTemp-22));
       this.tColor = [
