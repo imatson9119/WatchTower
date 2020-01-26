@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import {} from 'googlemaps';
+import {} from 'google';
 import { ViewChild } from '@angular/core';
 
 @Component({
