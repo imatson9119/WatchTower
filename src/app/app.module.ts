@@ -12,6 +12,7 @@ import { AirQualityComponent } from './air-quality/air-quality.component';
 import { FormsModule } from '@angular/forms'
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AutomcompleteComponent } from './automcomplete/automcomplete.component';
+import { PrecipitationComponent } from './precipitation/precipitation.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AutomcompleteComponent } from './automcomplete/automcomplete.component'
     HomeComponent,
     NavbarComponent,
     AirQualityComponent,
-    AutomcompleteComponent
+    AutomcompleteComponent,
+    PrecipitationComponent
   ],
   imports: [
     BrowserModule,
