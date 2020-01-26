@@ -8,12 +8,9 @@ import { DataService } from '../data.service';
 })
 export class NearestFireComponent implements OnInit {
 
-  distanceColor = "red";
-  indexColor = "red";
-
   constructor(public dataService: DataService) { }
 
   ngOnInit() {
   }
-
+  
 }

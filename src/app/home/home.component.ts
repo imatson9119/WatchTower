@@ -65,7 +65,9 @@ export class HomeComponent implements OnInit {
               }
             });
             this.dataService.fireDistance = "" + Math.round(min);
+            
           }
+          this.dataService.updateDistanceColor();
           fireSub.unsubscribe();
         });
         
@@ -128,6 +130,8 @@ export class HomeComponent implements OnInit {
           ];
           this.dataService.roundedHumidity = Math.round(value.humidity.value);
           this.dataService.fireIndex = Math.round(value.fire_index.value);
+          this.dataService.updateIndexColor();
+
           console.log(value);
           currentWeatherSub.unsubscribe();
         });
