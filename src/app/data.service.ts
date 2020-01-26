@@ -41,9 +41,15 @@ export class DataService {
       ]
     }
   ];
+
   
   roundedTemp = 25;
   aqMessage = "Excellent";
+  const mapProperties = {
+    center: new google.maps.LatLng(35.2271, -80.8431),
+    zoom: 15,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
   updateTempColor(){
     
     

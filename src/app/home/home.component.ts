@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { DataService } from '../data.service';
+import { MapComponent } from "../map/map.component";
+
+
 
 @Component({
   selector: 'app-home',
@@ -10,6 +13,8 @@ import { DataService } from '../data.service';
 export class HomeComponent implements OnInit {
 
   currentAddress = "";
+
+  @ViewChild(MapComponent, {static: true}) child;
 
   constructor(public http : HttpClient, public dataService: DataService) { }
 
@@ -21,6 +26,8 @@ export class HomeComponent implements OnInit {
     //GOOGLE GEOLOCATION API KEY: AIzaSyDxgXIfTSPLslewg0rU7ilnN0UxI1AXoek
     //CLIMACELL API KEY: kKGWvhbvo24tF2BELO9ErG2j1PH4YLon
     //TODO: Get latitude and longitude from address
+
+    
 
     let addressSub = this.http.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + this.currentAddress.trim().replace(' ', '+') + "&key=AIzaSyDxgXIfTSPLslewg0rU7ilnN0UxI1AXoek")
       .subscribe((value : any) => {
@@ -96,6 +103,16 @@ export class HomeComponent implements OnInit {
         });
 
         addressSub.unsubscribe();
+        
+        const mapProperties = {
+          center: new google.maps.LatLng(lat, lng),
+          zoom: 14,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        this.dataService.mapProperties = mapProperties;
+        console.log("Search Done");
+        this.child.onRefresh();
+
       });
   }
 
