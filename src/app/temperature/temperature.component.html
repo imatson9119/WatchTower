@@ -5,9 +5,10 @@
   [gradient]="gradient"
   [xAxis]="false"
   [yAxis]="showYAxis"
-  [yScaleMax] = "40"
+  [yScaleMax] = "35"
   [legend]="false"
   [showXAxisLabel]="false"
   [showYAxisLabel]="false"
   (select)="onSelect($event)">
 </ngx-charts-bar-vertical>
+<div class = temp>{{this.dataService.roundedTemp}}°C</div>
