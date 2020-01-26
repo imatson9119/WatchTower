@@ -1390,3 +1390,1420 @@ exports.batch1 = functions.https.onRequest((req : any, res : any) => {
           return res.send('Updated.');
     });    
   });
+
+  exports.batch14 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
+                [-17.722, 123.413],
+                [-25.97, 128.327],
+                [-27.153, 132.094],
+                [-31.346, 149.236],
+                [-14.661, 132.011],
+                [-19.234, 124.149],
+                [-28.017, 138.547],
+                [-36.246, 115.628],
+                [-20.28, 127.372],
+                [-24.2, 116.495],
+                [-32.258, 136.067],
+                [-19.095, 147.243],
+                [-34.627, 117.029],
+                [-36.347, 113.704],
+                [-22.015, 125.733],
+                [-34.62, 141.28],
+                [-22.634, 116.949],
+                [-11.97, 147.328],
+                [-38.662, 143.559],
+                [-31.312, 129.045],
+                [-23.406, 138.183],
+                [-24.934, 136.639],
+                [-23.848, 135.615],
+                [-29.948, 140.936],
+                [-24.949, 144.966],
+                [-34.782, 150.898],
+                [-26.977, 133.325],
+                [-19.543, 131.968],
+                [-19.547, 137.974],
+                [-38.574, 146.425],
+                [-18.965, 150.113],
+                [-13.145, 153.196],
+                [-19.872, 134.45],
+                [-28.881, 123.326],
+                [-33.619, 147.445],
+                [-14.612, 131.182],
+                [-27.622, 152.158],
+                [-26.43, 119.771],
+                [-29.27, 132.683],
+                [-37.159, 135.595],
+                [-32.819, 131.33],
+                [-18.759, 135.075],
+                [-26.071, 151.539],
+                [-32.585, 144.744],
+                [-29.279, 133.887],
+                [-17.612, 143.191],
+                [-22.246, 131.94],
+                [-33.738, 114.012],
+                [-34.995, 144.278],
+                [-13.625, 145.504],
+                [-38.268, 144.944],
+                [-26.753, 153.422],
+                [-23.494, 123.804],
+                [-34.51, 140.03],
+                [-16.469, 127.927],
+                [-33.024, 127.867],
+                [-18.838, 131.318],
+                [-16.848, 139.551],
+                [-25.942, 120.427],
+                [-38.135, 144.4]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=WhC5T3hrpV09jJwoTpQoyStyWEOoMeVL";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch15 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
+                [-28.88, 119.156],
+                [-28.405, 125.544],
+                [-11.895, 123.6],
+                [-14.844, 127.376],
+                [-14.627, 134.618],
+                [-32.369, 151.951],
+                [-35.662, 146.516],
+                [-30.939, 134.818],
+                [-16.56, 144.041],
+                [-25.125, 143.093],
+                [-27.234, 125.162],
+                [-31.34, 125.358],
+                [-33.6, 115.031],
+                [-32.568, 137.555],
+                [-14.158, 124.589],
+                [-19.969, 117.558],
+                [-11.482, 146.061],
+                [-32.347, 130.587],
+                [-34.932, 149.07],
+                [-11.766, 122.075],
+                [-21.13, 140.306],
+                [-30.205, 146.922],
+                [-28.197, 145.235],
+                [-27.814, 132.33],
+                [-11.357, 144.259],
+                [-16.947, 128.529],
+                [-23.06, 151.764],
+                [-16.214, 141.495],
+                [-36.621, 147.829],
+                [-37.329, 113.85],
+                [-13.377, 128.702],
+                [-11.359, 122.719],
+                [-23.897, 126.618],
+                [-36.284, 150.099],
+                [-19.46, 139.843],
+                [-18.189, 150.855],
+                [-28.884, 153.661],
+                [-30.777, 152.626],
+                [-18.606, 132.356],
+                [-16.15, 151.414],
+                [-22.718, 147.381],
+                [-16.961, 149.716],
+                [-26.898, 129.309],
+                [-21.814, 147.326],
+                [-23.425, 118.829],
+                [-31.922, 123.353],
+                [-15.216, 149.876],
+                [-24.118, 132.238],
+                [-17.693, 136.387],
+                [-22.787, 124.908],
+                [-13.431, 148.49],
+                [-27.876, 151.454],
+                [-24.594, 123.795],
+                [-32.527, 142.691],
+                [-28.855, 119.883],
+                [-16.307, 130.337],
+                [-33.55, 135.963],
+                [-21.617, 128.214],
+                [-22.717, 127.848],
+                [-25.876, 149.256]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=WhC5T3hrpV09jJwoTpQoyStyWEOoMeVL";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch16 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
+                [-27.119, 142.102],
+                [-33.755, 125.894],
+                [-17.55, 133.494],
+                [-38.585, 151.399],
+                [-18.857, 151.172],
+                [-20.396, 114.774],
+                [-19.104, 125.759],
+                [-37.805, 118.311],
+                [-30.895, 141.428],
+                [-25.432, 117.134],
+                [-21.537, 123.784],
+                [-35.444, 139.91],
+                [-27.983, 134.066],
+                [-29.606, 126.37],
+                [-27.947, 135.318],
+                [-37.661, 148.36],
+                [-22.329, 139.169],
+                [-30.219, 153.411],
+                [-11.347, 153.144],
+                [-22.702, 149.121],
+                [-20.409, 119.813],
+                [-31.913, 139.239],
+                [-32.728, 129.97],
+                [-23.995, 147.468],
+                [-28.297, 142.847],
+                [-15.207, 137.817],
+                [-28.016, 124.976],
+                [-23.114, 138.738],
+                [-23.419, 123.163],
+                [-14.148, 131.786],
+                [-14.851, 135.892],
+                [-33.001, 136.816],
+                [-29.015, 130.501],
+                [-22.019, 143.724],
+                [-30.171, 120.104],
+                [-17.854, 137.034],
+                [-31.544, 136.859],
+                [-34.085, 149.721],
+                [-14.266, 145.896],
+                [-18.936, 129.119],
+                [-20.21, 121.403],
+                [-32.412, 136.738],
+                [-34.31, 139.129],
+                [-31.787, 143.543],
+                [-33.614, 143.292],
+                [-14.612, 151.61],
+                [-15.626, 128.224],
+                [-33.661, 127.111],
+                [-29.128, 117.453],
+                [-21.824, 135.258],
+                [-17.459, 145.813],
+                [-20.481, 137.852],
+                [-26.955, 131.186],
+                [-20.134, 150.584],
+                [-16.918, 149.216],
+                [-20.889, 150.163],
+                [-30.667, 128.906],
+                [-17.891, 132.196],
+                [-31.747, 134.544],
+                [-30.094, 134.372]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=WhC5T3hrpV09jJwoTpQoyStyWEOoMeVL";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch17 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
+                [-18.803, 130.575],
+                [-27.699, 126.909],
+                [-13.369, 135.684],
+                [-24.247, 143.952],
+                [-12.23, 151.97],
+                [-15.547, 141.608],
+                [-17.724, 135.777],
+                [-27.363, 135.475],
+                [-35.833, 139.294],
+                [-27.981, 122.302],
+                [-33.063, 142.59],
+                [-38.589, 141.714],
+                [-27.248, 124.574],
+                [-21.305, 119.924],
+                [-38.195, 137.922],
+                [-23.238, 145.933],
+                [-18.649, 146.06],
+                [-28.755, 123.978],
+                [-38.534, 138.734],
+                [-20.996, 116.836],
+                [-11.564, 148.149],
+                [-33.596, 142.423],
+                [-15.65, 124.536],
+                [-21.163, 136.387],
+                [-16.508, 138.605],
+                [-22.056, 117.019],
+                [-24.898, 115.571],
+                [-36.477, 137.932],
+                [-21.954, 126.669],
+                [-28.499, 131.505],
+                [-18.26, 130.986],
+                [-27.748, 119.302],
+                [-29.885, 145.125],
+                [-22.905, 117.831],
+                [-22.726, 148.365],
+                [-22.162, 142.359],
+                [-13.671, 153.352],
+                [-25.163, 132.308],
+                [-25.071, 140.621],
+                [-31.133, 114.477],
+                [-38.502, 114.5],
+                [-14.118, 150.804],
+                [-22.018, 145.312],
+                [-15.992, 137.83],
+                [-26.668, 135.518],
+                [-28.457, 136.861],
+                [-33.575, 121.631],
+                [-30.921, 147.004],
+                [-16.314, 137.263],
+                [-19.546, 145.901],
+                [-17.598, 139.08],
+                [-29.519, 121.002],
+                [-21.638, 132.923],
+                [-30.645, 150.222],
+                [-16.02, 131.335],
+                [-17.593, 130.639],
+                [-29.415, 138.762],
+                [-27.897, 116.978],
+                [-33.23, 140.764],
+                [-24.229, 144.978]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=WhC5T3hrpV09jJwoTpQoyStyWEOoMeVL";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch18 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
+                [-23.805, 120.565],
+                [-23.981, 133.077],
+                [-32.224, 149.163],
+                [-32.93, 116.644],
+                [-27.133, 125.826],
+                [-25.279, 144.379],
+                [-15.245, 129.273],
+                [-14.248, 141.457],
+                [-27.19, 151.247],
+                [-32.711, 120.783],
+                [-25.765, 114.282],
+                [-20.238, 133.674],
+                [-33.656, 132.938],
+                [-16.95, 131.723],
+                [-23.72, 151.33],
+                [-36.934, 139.627],
+                [-37.69, 119.063],
+                [-31.694, 142.57],
+                [-17.277, 134.287],
+                [-13.949, 128.406],
+                [-25.385, 133.436],
+                [-32.955, 146.673],
+                [-23.045, 130.179],
+                [-34.123, 133.519],
+                [-20.276, 135.036],
+                [-21.906, 147.875],
+                [-25.132, 128.877],
+                [-29.63, 129.748],
+                [-21.664, 152.11],
+                [-35.267, 114.21],
+                [-29.42, 151.644],
+                [-21.253, 132.011],
+                [-13.629, 121.581],
+                [-18.927, 140.917],
+                [-25.962, 150.047],
+                [-23.49, 146.667],
+                [-29.723, 121.651],
+                [-20.257, 143.236],
+                [-20.145, 120.486],
+                [-16.866, 136.677],
+                [-19.539, 123.645],
+                [-37.713, 139.779],
+                [-14.204, 148.443],
+                [-16.765, 134.493],
+                [-33.711, 124.611],
+                [-35.011, 140.499],
+                [-14.693, 136.603],
+                [-34.277, 119.435],
+                [-36.391, 114.207],
+                [-18.491, 121.53],
+                [-20.638, 122.621],
+                [-15.838, 149.809],
+                [-27.402, 120.069],
+                [-23.139, 131.003],
+                [-29.131, 139.942],
+                [-23.522, 140.484],
+                [-33.743, 114.519],
+                [-32.842, 148.845],
+                [-36.943, 150.959],
+                [-13.159, 132.407]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=WhC5T3hrpV09jJwoTpQoyStyWEOoMeVL";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch19 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
+                [-22.881, 128.428],
+                [-19.312, 130.357],
+                [-17.549, 122.296],
+                [-27.02, 152.742],
+                [-25.045, 142.249],
+                [-11.755, 132.292],
+                [-34.105, 126.601],
+                [-21.341, 117.401],
+                [-12.206, 150.703],
+                [-21.746, 116.181],
+                [-15.151, 151.573],
+                [-20.12, 125.943],
+                [-36.671, 142.54],
+                [-18.429, 138.718],
+                [-24.46, 134.838],
+                [-14.638, 121.311],
+                [-24.92, 124.731],
+                [-24.261, 119.482],
+                [-37.309, 138.621],
+                [-28.126, 134.732],
+                [-17.129, 122.803],
+                [-13.625, 124.918],
+                [-22.141, 129.519],
+                [-34.213, 117.899],
+                [-11.384, 121.41],
+                [-20.755, 113.986],
+                [-12.103, 126.87],
+                [-23.539, 142.31],
+                [-27.053, 146.633],
+                [-21.598, 142.698],
+                [-15.265, 131.496],
+                [-19.979, 130.58],
+                [-26.15, 118.466],
+                [-17.359, 138.5],
+                [-31.56, 150.027],
+                [-24.053, 122.976],
+                [-14.963, 143.23],
+                [-33.814, 118.885],
+                [-21.156, 141.784],
+                [-13.531, 136.343],
+                [-24.747, 133.441],
+                [-13.142, 151.902],
+                [-38.439, 147.165],
+                [-18.208, 153.328],
+                [-14.498, 142.307],
+                [-37.359, 117.594],
+                [-38.161, 136.859],
+                [-25.789, 145.449],
+                [-15.849, 144.91],
+                [-18.611, 148.994],
+                [-26.468, 115.808],
+                [-21.309, 146.254],
+                [-24.991, 125.75],
+                [-14.306, 129.704],
+                [-16.35, 124.285],
+                [-31.291, 132.011],
+                [-15.43, 125.454],
+                [-19.521, 131.277],
+                [-25.241, 118.957],
+                [-16.491, 125.014]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=WhC5T3hrpV09jJwoTpQoyStyWEOoMeVL";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch20 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
+                [-33.836, 116.537],
+                [-21.745, 134.749],
+                [-24.951, 152.283],
+                [-25.329, 120.682],
+                [-28.959, 141.121],
+                [-32.366, 121.946],
+                [-13.864, 152.741],
+                [-30.987, 140.877],
+                [-19.927, 149.991],
+                [-25.572, 137.285],
+                [-31.581, 140.186],
+                [-24.852, 136.048],
+                [-24.82, 126.463],
+                [-19.258, 127.111],
+                [-26.574, 151.196],
+                [-33.602, 151.855],
+                [-29.772, 130.459],
+                [-20.991, 135.254],
+                [-35.824, 145.361],
+                [-37.467, 146.354],
+                [-15.729, 149.051],
+                [-28.294, 127.768],
+                [-21.817, 150.646],
+                [-29.289, 124.338],
+                [-14.128, 146.702],
+                [-14.669, 147.322],
+                [-29.908, 132.514],
+                [-26.421, 131.063],
+                [-12.178, 128.744],
+                [-24.026, 129.375],
+                [-20.72, 121.811],
+                [-22.128, 120.231],
+                [-22.208, 114.112],
+                [-29.625, 113.762],
+                [-20.904, 152.889],
+                [-16.331, 152.633],
+                [-27.864, 136.841],
+                [-14.398, 149.746],
+                [-38.65, 153.306],
+                [-11.37, 125.24],
+                [-16.822, 133.007],
+                [-31.731, 141.029],
+                [-23.618, 136.646],
+                [-29.892, 122.206],
+                [-16.043, 135.447],
+                [-22.33, 117.532],
+                [-26.439, 152.718],
+                [-19.496, 115.303],
+                [-19.072, 129.674],
+                [-19.511, 113.888],
+                [-11.868, 127.751],
+                [-32.743, 118.178],
+                [-19.721, 152.251],
+                [-27.189, 121.99],
+                [-29.216, 145.072],
+                [-28.851, 138.67],
+                [-26.304, 114.841],
+                [-24.326, 120.292],
+                [-32.643, 128.781],
+                [-15.592, 126.584]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=WhC5T3hrpV09jJwoTpQoyStyWEOoMeVL";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch21 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
+                [-19.305, 145.129],
+                [-30.159, 126.522],
+                [-31.671, 146.341],
+                [-31.337, 126.033],
+                [-31.717, 124.039],
+                [-37.168, 116.418],
+                [-36.307, 141.752],
+                [-11.514, 151.239],
+                [-13.58, 150.836],
+                [-35.51, 144.379],
+                [-18.009, 149.269],
+                [-32.848, 124.997],
+                [-19.039, 136.454],
+                [-36.006, 152.537],
+                [-37.142, 140.374],
+                [-15.58, 130.67],
+                [-27.422, 118.392],
+                [-15.692, 145.619],
+                [-25.852, 135.728],
+                [-33.513, 153.399],
+                [-24.425, 136.727],
+                [-25.999, 132.748],
+                [-32.81, 118.856],
+                [-19.761, 114.716],
+                [-13.118, 147.028],
+                [-16.984, 151.936],
+                [-17.051, 123.479],
+                [-24.308, 141.043],
+                [-26.818, 146.039],
+                [-28.2, 120.658],
+                [-32.31, 152.468],
+                [-26.195, 126.825],
+                [-23.649, 145.179],
+                [-35.381, 115.708],
+                [-22.766, 142.228],
+                [-34.089, 146.326],
+                [-29.641, 127.004],
+                [-21.496, 139.69],
+                [-30.889, 137.982],
+                [-21.476, 149.473],
+                [-23.249, 116.862],
+                [-29.668, 115.674],
+                [-19.913, 129.997],
+                [-20.766, 133.236],
+                [-32.064, 132.718],
+                [-28.543, 137.64],
+                [-16.415, 150.073],
+                [-20.25, 147.949],
+                [-14.857, 145.276],
+                [-28.243, 141.978],
+                [-28.347, 119.3],
+                [-30.752, 145.532],
+                [-29.321, 122.491],
+                [-33.121, 126.983],
+                [-31.306, 116.95],
+                [-24.735, 114.438],
+                [-34.14, 136.7],
+                [-19.887, 118.233],
+                [-34.65, 115.608],
+                [-18.604, 123.898]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=WhC5T3hrpV09jJwoTpQoyStyWEOoMeVL";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch22 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
+                [-34.801, 113.692],
+                [-13.032, 141.485],
+                [-30.089, 148.753],
+                [-18.072, 128.301],
+                [-22.43, 123.43],
+                [-23.997, 139.733],
+                [-38.204, 145.861],
+                [-34.157, 152.911],
+                [-13.811, 142.336],
+                [-32.812, 135.419],
+                [-32.212, 114.108],
+                [-25.071, 149.792],
+                [-32.736, 148.084],
+                [-15.947, 153.29],
+                [-16.438, 128.48],
+                [-21.777, 152.831],
+                [-13.168, 144.64],
+                [-30.222, 139.112],
+                [-35.611, 136.33],
+                [-12.892, 127.194],
+                [-30.758, 118.054],
+                [-25.699, 141.195],
+                [-35.776, 142.278],
+                [-16.786, 140.508],
+                [-13.056, 151.272],
+                [-15.634, 144.348],
+                [-12.266, 151.293],
+                [-37.515, 145.801],
+                [-26.87, 118.769],
+                [-16.069, 151.942],
+                [-38.304, 151.944],
+                [-19.426, 146.549],
+                [-33.36, 150.077],
+                [-32.901, 115.123],
+                [-31.777, 145.221],
+                [-38.644, 118.36],
+                [-37.612, 151.277],
+                [-29.931, 152.315],
+                [-20.908, 149.101],
+                [-21.59, 124.744],
+                [-22.533, 122.654],
+                [-25.131, 143.834],
+                [-29.194, 116.827],
+                [-36.452, 114.999],
+                [-29.638, 147.545],
+                [-16.467, 144.741],
+                [-35.653, 153.487],
+                [-26.771, 144.878],
+                [-29.682, 146.911],
+                [-31.277, 148.621],
+                [-12.461, 122.502],
+                [-12.609, 131.922],
+                [-11.889, 131.546],
+                [-26.64, 117.738],
+                [-12.431, 150.097],
+                [-31.055, 142.86],
+                [-25.386, 123.402],
+                [-30.374, 149.706],
+                [-22.117, 141.498],
+                [-35.689, 150.104]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=WhC5T3hrpV09jJwoTpQoyStyWEOoMeVL";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch23 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
+                [-32.124, 148.184],
+                [-38.351, 119.339],
+                [-27.547, 145.344],
+                [-21.23, 147.062],
+                [-11.493, 135.514],
+                [-26.388, 143.713],
+                [-17.013, 146.36],
+                [-27.884, 144.239],
+                [-27.818, 139.609],
+                [-19.471, 135.929],
+                [-19.767, 139.079],
+                [-19.349, 132.754],
+                [-20.133, 132.91],
+                [-28.886, 150.881],
+                [-28.557, 136.358],
+                [-15.826, 136.608],
+                [-27.683, 130.962],
+                [-12.638, 129.572],
+                [-31.053, 151.698],
+                [-25.944, 146.349],
+                [-24.484, 150.319],
+                [-24.658, 148.429],
+                [-29.921, 124.891],
+                [-17.301, 153.548],
+                [-27.331, 136.918],
+                [-22.757, 149.844],
+                [-30.093, 132.0],
+                [-17.681, 121.559],
+                [-22.463, 146.413],
+                [-18.048, 124.108],
+                [-18.976, 128.561],
+                [-30.227, 133.869],
+                [-35.851, 147.066],
+                [-33.296, 117.755],
+                [-17.495, 145.022],
+                [-11.446, 141.587],
+                [-36.218, 143.208],
+                [-13.827, 134.879],
+                [-16.207, 127.137],
+                [-20.248, 113.928],
+                [-29.756, 131.131],
+                [-14.003, 126.769],
+                [-31.499, 147.132],
+                [-29.498, 136.78],
+                [-28.312, 147.944],
+                [-14.137, 123.855],
+                [-31.77, 119.449],
+                [-33.524, 131.293],
+                [-27.11, 116.176],
+                [-35.774, 148.513],
+                [-14.499, 128.134],
+                [-36.038, 147.739],
+                [-11.391, 149.826],
+                [-26.767, 126.802],
+                [-36.438, 116.256],
+                [-26.07, 122.584],
+                [-32.042, 129.061],
+                [-29.462, 118.901],
+                [-17.357, 126.428],
+                [-26.624, 120.38]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=WhC5T3hrpV09jJwoTpQoyStyWEOoMeVL";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch24 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
+                [-38.016, 135.923],
+                [-34.491, 153.492],
+                [-27.664, 133.151],
+                [-17.485, 140.92],
+                [-31.021, 140.174],
+                [-20.422, 140.664],
+                [-22.348, 152.016],
+                [-18.077, 144.825],
+                [-27.312, 134.691],
+                [-15.419, 139.236],
+                [-16.694, 129.707],
+                [-16.952, 143.046],
+                [-24.91, 141.719],
+                [-37.781, 140.564],
+                [-33.312, 120.253],
+                [-11.406, 129.603],
+                [-29.135, 128.664],
+                [-25.593, 124.5],
+                [-32.81, 139.859],
+                [-31.104, 138.857],
+                [-31.631, 141.844],
+                [-13.668, 149.363],
+                [-33.827, 144.297],
+                [-34.235, 145.24],
+                [-11.528, 146.77],
+                [-21.316, 153.635],
+                [-31.336, 115.797],
+                [-37.648, 148.962],
+                [-24.797, 132.861],
+                [-26.92, 140.615],
+                [-18.407, 141.745],
+                [-32.476, 138.177],
+                [-34.618, 135.612],
+                [-24.668, 130.06],
+                [-14.262, 152.133],
+                [-34.425, 148.432],
+                [-14.803, 147.94],
+                [-25.775, 117.719],
+                [-15.362, 129.929],
+                [-16.417, 149.255],
+                [-27.935, 113.869],
+                [-23.683, 131.422],
+                [-35.473, 143.402],
+                [-18.077, 132.865],
+                [-31.832, 117.632],
+                [-30.643, 146.229],
+                [-33.475, 128.458],
+                [-16.547, 153.619],
+                [-31.895, 138.421],
+                [-29.01, 149.119],
+                [-24.786, 120.86],
+                [-37.897, 114.257],
+                [-31.384, 129.865],
+                [-31.539, 116.327],
+                [-31.918, 120.339],
+                [-22.961, 121.864],
+                [-25.658, 152.063],
+                [-22.548, 140.942],
+                [-33.558, 129.325],
+                [-28.297, 146.787]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=WhC5T3hrpV09jJwoTpQoyStyWEOoMeVL";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch25 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
+                [-33.432, 123.193],
+                [-33.508, 132.19],
+                [-28.605, 116.574],
+                [-26.338, 128.946],
+                [-31.756, 133.242],
+                [-19.463, 121.177],
+                [-22.927, 128.928],
+                [-11.316, 131.095],
+                [-28.919, 134.78],
+                [-25.506, 115.362],
+                [-38.078, 117.638],
+                [-19.998, 128.838],
+                [-18.937, 126.276],
+                [-23.329, 133.012],
+                [-24.03, 145.819],
+                [-13.231, 124.342],
+                [-31.492, 113.703],
+                [-29.605, 138.031],
+                [-30.212, 127.809],
+                [-18.4, 151.78],
+                [-27.774, 148.559],
+                [-18.773, 137.146],
+                [-24.079, 146.35],
+                [-34.705, 114.69],
+                [-19.456, 116.432],
+                [-16.838, 147.083],
+                [-31.287, 123.387],
+                [-30.701, 149.01],
+                [-33.642, 117.089],
+                [-26.661, 136.763],
+                [-28.007, 137.811],
+                [-30.03, 114.383],
+                [-26.77, 122.516],
+                [-11.331, 136.454],
+                [-22.497, 131.281],
+                [-37.542, 150.619],
+                [-14.906, 152.452],
+                [-26.724, 152.18],
+                [-29.714, 144.349],
+                [-14.11, 144.934],
+                [-24.061, 121.259],
+                [-34.636, 118.674],
+                [-37.921, 149.477],
+                [-16.974, 148.67],
+                [-26.298, 133.319],
+                [-35.979, 145.977],
+                [-18.254, 145.536],
+                [-22.933, 137.577],
+                [-18.457, 124.763],
+                [-32.682, 151.238],
+                [-26.594, 132.815],
+                [-28.894, 120.533],
+                [-35.11, 153.364],
+                [-23.955, 138.088],
+                [-18.114, 142.773],
+                [-36.076, 151.07],
+                [-22.319, 151.365],
+                [-24.708, 131.546],
+                [-22.941, 119.661],
+                [-12.568, 152.889]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=WhC5T3hrpV09jJwoTpQoyStyWEOoMeVL";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
+
+  exports.batch26 = functions.https.onRequest((req : any, res : any) => {
+    cors(req, res, () => {
+        (async () => {
+
+            let locations = [
+                [-18.561, 149.56],
+                [-12.661, 126.425],
+                [-11.683, 133.992],
+                [-19.555, 125.004],
+                [-19.322, 117.794],
+                [-30.765, 142.129],
+                [-37.251, 146.868],
+                [-15.494, 135.536],
+                [-35.543, 149.22],
+                [-24.852, 145.983],
+                [-29.691, 149.826],
+                [-34.167, 141.969],
+                [-23.5, 127.935],
+                [-38.732, 139.252],
+                [-18.545, 127.122],
+                [-23.307, 141.085],
+                [-20.648, 138.584],
+                [-11.324, 126.592],
+                [-28.091, 143.432],
+                [-21.792, 120.787],
+                [-38.734, 116.394],
+                [-25.248, 114.429],
+                [-24.043, 153.027],
+                [-36.416, 136.572],
+                [-12.023, 153.523],
+                [-15.127, 150.497],
+                [-37.149, 141.49],
+                [-24.438, 137.475],
+                [-12.159, 148.931],
+                [-21.51, 115.588],
+                [-25.38, 122.525],
+                [-34.197, 134.729],
+                [-36.78, 117.128],
+                [-16.356, 142.173],
+                [-33.835, 120.59],
+                [-29.553, 134.529],
+                [-34.539, 143.645],
+                [-37.938, 135.37],
+                [-26.543, 116.477],
+                [-12.109, 135.862],
+                [-19.292, 133.332],
+                [-18.315, 123.204],
+                [-16.086, 129.366],
+                [-37.743, 153.662],
+                [-20.402, 148.501],
+                [-32.197, 140.237],
+                [-28.41, 132.759],
+                [-30.874, 135.354],
+                [-36.032, 135.32],
+                [-23.042, 136.744],
+                [-27.667, 129.167],
+                [-22.698, 143.312],
+                [-17.644, 151.573],
+                [-23.225, 124.351],
+                [-27.773, 125.625],
+                [-31.721, 153.663],
+                [-15.988, 125.841],
+                [-15.223, 136.392],
+                [-25.38, 146.26],
+                [-33.305, 126.458]];
+
+            //console.log(locations);
+            // Database stuff - reference to database
+            var db = admin.database();
+            var ref = db.ref("/");
+
+            // Attach an asynchronous callback to read the data at our posts reference
+            locations.forEach(async (location) => {
+                let lat = location[0];
+                let lng = location[1];
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=WhC5T3hrpV09jJwoTpQoyStyWEOoMeVL";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
+            });
+            
+
+            /*ref.on("value", function(snapshot) {
+            console.log(snapshot.val());
+            }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+            });*/
+
+            //End Database stuff
+          })()
+          return res.send('Updated.');
+    });    
+  });
