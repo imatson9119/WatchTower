@@ -10,7 +10,7 @@
   [xAxisLabel]="xAxisLabel"
   [yAxisLabel]="'Inches'"
   [timeline]="timeline"
-  [results]="multi"
+  [results]="this.dataService.precip"
   (select)="onSelect($event)">
     </ngx-charts-area-chart>
 </div>

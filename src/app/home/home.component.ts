@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
         let now = new Date();
         let one = new Date(86400000)
         console.log(now.toJSON());
-        let lastMonth = new Date((now.valueOf() - 31 * one.valueOf()));
+        let lastMonth = new Date((now.valueOf() - 30 * one.valueOf()));
         //console.log(yesterday.toJSON());
 
         let authorizationData = 'Basic ' + btoa('2cb07f8a' + ':' + '170a49283480df4caedee63e6c4cedbc');
@@ -68,6 +68,17 @@ export class HomeComponent implements OnInit {
         .subscribe((value : any) => {
           console.log("PRECIP");
           console.log(value.series);
+          let objs = [{
+            "name" : "Precipitation",
+            "series": [{"name": "","value": 0}]
+          }]
+          objs[0].series.pop();
+          value.series.forEach((elem: any) => {
+            let name = elem.validDate.substr(5,5);
+            let value = elem.value;
+            objs[0].series.push({"name":name,"value":value});
+          });
+          this.dataService.precip = objs;
           pastWeatherSub.unsubscribe();
         });
 

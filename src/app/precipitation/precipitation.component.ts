@@ -2,6 +2,7 @@ import { Component, NgModule, OnInit, HostListener } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { multi } from './data';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-precipitation',
@@ -30,7 +31,7 @@ export class PrecipitationComponent implements OnInit {
   ngOnInit(){
     
   }
-  constructor() {
+  constructor(public dataService: DataService) {
     Object.assign(this, { multi });
     var x = window.matchMedia("(min-width: 700px)");
     this.resize(x);

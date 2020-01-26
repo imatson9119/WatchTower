@@ -30,6 +30,18 @@ export class DataService {
       value: "25"
     }
   ];
+  precip = [
+    {
+      "name": "Precipitation",
+      "series": [
+        {
+          "name": " ",
+          "value": 0
+        }
+      ]
+    }
+  ];
+  
   roundedTemp = 25;
   aqMessage = "Excellent";
   updateTempColor(){

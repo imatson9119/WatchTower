@@ -6,18 +6,24 @@
         <AutocompleteComponent style class="input" (setAddress)="getAddress($event)" addressType="geocode"></AutocompleteComponent>
     </div>
     <div class=row>
-        <div class = precip-container>
-            <div class ='card long'>
-                <div class = card-header>
-                    <i class="material-icons">
-                        filter_drama
-                    </i>
-                    Precipitation
-                </div>
-                <app-precipitation style="flex:1"></app-precipitation>
+        <div class ='card long'>
+            <div class = card-header>
+                <i class="material-icons">
+                    filter_drama
+                </i>
+                Precipitation
             </div>
+            <app-precipitation style="flex:1"></app-precipitation>
         </div>
-        <div style="display:flex; flex-wrap: wrap; justify-content: center;">
+        <div class ='card'>
+            <div class = card-header>
+                <i class="material-icons rainfall">
+                    format_align_justify
+                </i>
+                Total Rainfall
+            </div>
+            <app-temperature style="flex:1"></app-temperature>
+        </div>
         <div class ='card'>
             <div class = card-header>
                 <i class="material-icons">
@@ -35,7 +41,6 @@
                 Temperature
             </div>
             <app-temperature style="flex:1"></app-temperature>
-        </div>
         </div>
         <div class ='card map' style = "width: 100%;height:auto;margin-bottom:10px;">
             <div class = card-header>

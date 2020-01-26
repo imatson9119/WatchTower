@@ -15,6 +15,7 @@ import { AutomcompleteComponent } from './automcomplete/automcomplete.component'
 import { PrecipitationComponent } from './precipitation/precipitation.component';
 import { TemperatureComponent } from './temperature/temperature.component';
 import { MapComponent } from './map/map.component';
+import { TotalPrecipitationComponent } from './total-precipitation/total-precipitation.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MapComponent } from './map/map.component';
     AutomcompleteComponent,
     PrecipitationComponent,
     TemperatureComponent,
-    MapComponent
+    MapComponent,
+    TotalPrecipitationComponent
   ],
   imports: [
     BrowserModule,
