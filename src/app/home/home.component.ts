@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
 
   onSearch() {
     console.log("Called search");
+    var loadingBar = document.getElementById("loading-bar");
     this.dataService.loading = 0;
     //GOOGLE GEOLOCATION API KEY: AIzaSyDxgXIfTSPLslewg0rU7ilnN0UxI1AXoek
     //CLIMACELL API KEY: kKGWvhbvo24tF2BELO9ErG2j1PH4YLon
@@ -35,6 +36,8 @@ export class HomeComponent implements OnInit {
 
     let addressSub = this.http.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + this.currentAddress.trim().replace(' ', '+') + "&key=AIzaSyDxgXIfTSPLslewg0rU7ilnN0UxI1AXoek")
       .subscribe((value : any) => {
+        
+        loadingBar.classList.add("expanded");
         console.log("Starting Address Sub");
         let lat = value.results[0].geometry.location.lat;
         let lng = value.results[0].geometry.location.lng;
@@ -50,6 +53,9 @@ export class HomeComponent implements OnInit {
           ];
           this.dataService.setAirQualityColor();
           this.dataService.loading+=20;
+          if(this.dataService.loading>=100){
+            loadingBar.classList.remove("expanded");
+          }
           console.log("Finished AQ Sub");
           this.cdr.detectChanges();
           airQualitySub.unsubscribe();
@@ -74,6 +80,9 @@ export class HomeComponent implements OnInit {
           }
           this.dataService.updateDistanceColor();
           this.dataService.loading+=20;
+          if(this.dataService.loading>=100){
+            loadingBar.classList.remove("expanded");
+          }
           console.log("Finished Fire Sub");
           this.cdr.detectChanges();
 
@@ -113,6 +122,9 @@ export class HomeComponent implements OnInit {
           this.dataService.precip = objs;
           this.dataService.roundedtRainFall = Math.round(tRainFall);
           this.dataService.loading+=20;
+          if(this.dataService.loading>=100){
+            loadingBar.classList.remove("expanded");
+          }
           console.log("Ending Rain Sub");
           this.cdr.detectChanges();
 
@@ -145,10 +157,16 @@ export class HomeComponent implements OnInit {
           this.dataService.updateIndexColor();
 
           this.dataService.loading+=20;
+          if(this.dataService.loading>=100){
+            loadingBar.classList.remove("expanded");
+          }
           console.log("Ending Weather Sub");
           currentWeatherSub.unsubscribe();
         });
         this.dataService.loading+=20;
+          if(this.dataService.loading>=100){
+            loadingBar.classList.remove("expanded");
+          }
         console.log("Ending Address Sub");
         this.cdr.detectChanges();
 
@@ -163,6 +181,7 @@ export class HomeComponent implements OnInit {
         this.child.onRefresh();
 
       });
+      loadingBar.classList.remove("expanded");
   }
 
   getAddress(event) {

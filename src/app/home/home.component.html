@@ -5,6 +5,9 @@
             </i>
         <AutocompleteComponent style class="input" (setAddress)="getAddress($event)" addressType="geocode"></AutocompleteComponent>
     </div>
+    <div class = loading-bar id=loading-bar>
+        <div class = inside [ngStyle]="{'width': this.dataService.loading + '%'}"></div>
+    </div>
     <div class=row>
         
         <app-map style="flex:1"></app-map>

@@ -98,7 +98,28 @@
 .precip-container{
     flex:1;
 }
+.loading-bar{
 
+    margin-left: 20px;
+    margin-right: 20px;
+    position: relative;
+    height: 0px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: none;
+    transition: .4s;
+}
+.loading-bar.expanded{
+    height: 5px;
+}
+.loading-bar .inside{
+    height: 100%;
+    width: 0%;
+    border-radius: 5px;
+    background: rgba(131, 131, 255, .8);
+    transition: .4s;
+    z-index: 1;
+}
 @media only screen and (max-width: 800px){
     .main-container{
         min-height: 72vh;
