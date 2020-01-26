@@ -20,6 +20,7 @@ import { HumidityComponent } from './humidity/humidity.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database'
 import { environment } from 'src/environments/environment';
+import { NearestFireComponent } from './nearest-fire/nearest-fire.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { environment } from 'src/environments/environment';
     TemperatureComponent,
     MapComponent,
     TotalPrecipitationComponent,
-    HumidityComponent
+    HumidityComponent,
+    NearestFireComponent
   ],
   imports: [
     BrowserModule,
