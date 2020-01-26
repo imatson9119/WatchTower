@@ -17,6 +17,20 @@ export class MapComponent implements OnInit {
 
   @ViewChild('map', {static: true}) mapElement: any;
   map: google.maps.Map;
+  image = {
+    url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+    // This marker is 20 pixels wide by 32 pixels high.
+    size: new google.maps.Size(20, 32),
+    // The origin for this image is (0, 0).
+    origin: new google.maps.Point(0, 0),
+    // The anchor for this image is the base of the flagpole at (0, 32).
+    anchor: new google.maps.Point(0, 32)
+  };
+  shape: any = {
+    coords: [1, 1, 1, 20, 18, 20, 18, 1],
+    type: 'poly'
+  };
+
   constructor(public dataService: DataService, public database : AngularFireDatabase) {
     
   }
@@ -34,31 +48,19 @@ export class MapComponent implements OnInit {
     //}
     this.map = new google.maps.Map(this.mapElement.nativeElement,    this.dataService.mapProperties);
 
-    var image = {
-      url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-      // This marker is 20 pixels wide by 32 pixels high.
-      size: new google.maps.Size(20, 32),
-      // The origin for this image is (0, 0).
-      origin: new google.maps.Point(0, 0),
-      // The anchor for this image is the base of the flagpole at (0, 32).
-      anchor: new google.maps.Point(0, 32)
-    };
+    
     // Shapes define the clickable region of the icon. The type defines an HTML
     // <area> element 'poly' which traces out a polygon as a series of X,Y points.
     // The final coordinate closes the poly by connecting to the first coordinate.
-    var shape: any = {
-      coords: [1, 1, 1, 20, 18, 20, 18, 1],
-      type: 'poly'
-    };
-    console.log("FIRES");
-    console.log(this.dataService.nearbyFires);
+
+
     for (var i = 0; i < this.dataService.nearbyFires.length; i++) {
       var fire = this.dataService.nearbyFires[i];
       var marker = new google.maps.Marker({
         position: {lat: parseFloat(fire.position.lat), lng: parseFloat(fire.position.lon)},
         map: this.map,
-        icon: image,
-        shape: shape,
+        icon: this.image,
+        shape: this.shape,
         title: "check",
         zIndex: 35
       });
@@ -100,4 +102,19 @@ export class MapComponent implements OnInit {
     });
   }
 
+
+  fireReported(){
+    console.log("poop");
+      var fire = this.dataService.mapProperties;
+      var marker = new google.maps.Marker({
+        position: fire.center,
+        map: this.map,
+        icon: this.image,
+        shape: this.shape,
+        title: "check",
+        zIndex: 35
+      });
+      marker.setMap(this.map);
+    
+  }
 }
