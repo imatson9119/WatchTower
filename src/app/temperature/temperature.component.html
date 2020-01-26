@@ -1,14 +1,13 @@
 <ngx-charts-bar-vertical
-  [view]="[150,230]"
+  [view]="[100,200]"
   [scheme]="colorScheme"
-  [results]="single"
+  [results]="this.dataService.temp"
   [gradient]="gradient"
-  [xAxis]="showXAxis"
+  [xAxis]="false"
   [yAxis]="showYAxis"
-  [legend]="showLegend"
-  [showXAxisLabel]="showXAxisLabel"
-  [showYAxisLabel]="showYAxisLabel"
-  [xAxisLabel]="xAxisLabel"
-  [yAxisLabel]="yAxisLabel"
+  [yScaleMax] = "40"
+  [legend]="false"
+  [showXAxisLabel]="false"
+  [showYAxisLabel]="false"
   (select)="onSelect($event)">
 </ngx-charts-bar-vertical>

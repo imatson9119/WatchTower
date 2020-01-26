@@ -18,6 +18,12 @@ export class DataService {
       value: '#00c853'
     }
   ];
+  temp = [
+    {
+      name: "Temperature (C)",
+      value: "25"
+    }
+  ];
   aqMessage = "Excellent";
   setAirQualityColor(){
     let value = this.single[0].value;

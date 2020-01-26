@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   currentAddress = "";
 
-  constructor(public http : HttpClient, public dataServer: DataService) { }
+  constructor(public http : HttpClient, public dataService: DataService) { }
 
   ngOnInit() {
     this.onSearch();
@@ -32,15 +32,13 @@ export class HomeComponent implements OnInit {
 
         let airQualitySub = this.http.get("https://api.breezometer.com/air-quality/v2/current-conditions?lat=" + lat + "&lon=" + lng + "&key=639074e9fc5b4dd492f3b559390184d3")
         .subscribe((value : any) => {
-          console.log(value);
-          console.log(value.data.indexes.baqi.aqi);
-          this.dataServer.single = [
+          this.dataService.single = [
             {
               "name": "Air Quality",
               "value": value.data.indexes.baqi.aqi
             }
           ];
-          this.dataServer.setAirQualityColor();
+          this.dataService.setAirQualityColor();
           airQualitySub.unsubscribe();
         });
     
@@ -65,7 +63,12 @@ export class HomeComponent implements OnInit {
 
         let currentWeatherSub = this.http.get("https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=kKGWvhbvo24tF2BELO9ErG2j1PH4YLon")
         .subscribe((value : any) => {
-          console.log(value);
+          this.dataService.temp = [
+            {
+              name: "Temperature (C)",
+              value: value.temp.value
+            }
+          ];
           currentWeatherSub.unsubscribe();
         });
 
