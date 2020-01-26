@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { DataService } from '../data.service';
 
 @Component({
@@ -52,12 +52,22 @@ export class HomeComponent implements OnInit {
         let now = new Date();
         let one = new Date(86400000)
         console.log(now.toJSON());
-        let yesterday = new Date((now.valueOf() - one.valueOf()));
-        console.log(yesterday.toJSON());
+        let lastMonth = new Date((now.valueOf() - 31 * one.valueOf()));
+        //console.log(yesterday.toJSON());
 
-        let pastWeatherSub = this.http.get("https://api.climacell.co/v3/weather/historical/station?start_time=" + yesterday.toJSON() + "&end_time=" + now.toJSON() + "&lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=precipitation&apikey=kKGWvhbvo24tF2BELO9ErG2j1PH4YLon")
+        let authorizationData = 'Basic ' + btoa('2cb07f8a' + ':' + '170a49283480df4caedee63e6c4cedbc');
+
+        const headerOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Authorization': authorizationData
+            })
+        };
+
+        let pastWeatherSub = this.http.get("https://insight.api.wdtinc.com/daily-precipitation/" + lat + "/" + lng + "?start=" + lastMonth.toJSON().substr(0, 10) + "&end=" + now.toJSON().substr(0,10), headerOptions)
         .subscribe((value : any) => {
-          console.log(value);
+          console.log("PRECIP");
+          console.log(value.series);
           pastWeatherSub.unsubscribe();
         });
 
