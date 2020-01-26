@@ -755,11 +755,39 @@ export class DataService {
   roundedtRainFall = 100;
   roundedTemp = 25;
   aqMessage = "Excellent";
+  distanceColor = "black";
+  indexColor = "black";
   mapProperties = {
     center: new google.maps.LatLng(-25.7, 134.3),
     zoom: 4,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
+  updateDistanceColor(){
+    //90 155 90
+    if(this.fireDistance.length < 4){
+      let dist = parseInt(this.fireDistance);
+      if(dist >= 50){
+        this.distanceColor = "rgb(" + (90 + (65/50)*(100-dist)) + ",155,90)";
+      }
+      else{
+        this.distanceColor = "rgb(155," + (155 - (65/50)*(50-dist)) + ",90)";
+      }
+    }
+    else{
+      this.distanceColor = "rgb(90,155,90)";
+    }
+  }
+  updateIndexColor(){
+    if(this.fireIndex > 50){
+      this.indexColor = "rgb(90,155,90)";
+    }
+    else if(this.fireIndex > 25){
+      this.indexColor = "rgb(155," + (155 - (65/25)*(this.fireIndex - 25)) + ",90)";
+    }
+    else{
+      this.indexColor = "rgb(" + (90 + (65/25)*this.fireIndex) + ",155,90)";
+    }
+  }
   nearbyFires = [];
   updateTempColor(){
     

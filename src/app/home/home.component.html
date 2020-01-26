@@ -5,7 +5,6 @@
             </i>
         <AutocompleteComponent style class="input" (setAddress)="getAddress($event)" addressType="geocode"></AutocompleteComponent>
     </div>
-    <app-nearest-fire class = 'fade-in one'></app-nearest-fire>
     <div class=row>
         <div class ='card map fade-in two' style = "width: 100%;height:auto;margin-bottom:10px;">
             <div class = card-header>
@@ -16,6 +15,7 @@
             </div>
             <app-map style="flex:1"></app-map>
         </div>
+        <app-nearest-fire style = "width:100%; margin-left: 20px; margin-right: 20px;" class = 'fade-in one'></app-nearest-fire>
         <div class ='card long fade-in three'>
             <div class = card-header>
                 <i class="material-icons">
