@@ -1,6 +1,9 @@
+//import request = require("request");
+
 //import * as functions from 'firebase-functions';
 //import * as request from "request-promise-native";
 
+const ftch = require("node-fetch");
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const cors = require('cors')({origin: true});
@@ -55,25 +58,35 @@ exports.sendMail = functions.https.onRequest((req : any, res : any) => {
             [-37.71938333333334,152.243476],
             [-41.271737, 145.360330],
             [-42.769013,147.55045374999997]];
-            /*const baseUrl = 'www.random.org/integers';
-            const queryString = '?num=100&min=1&max=100&col=5&base=10&format=html&rnd=new';
-            var options = {
-                uri: baseUrl + queryString,
-            };
-            //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
-            const result = await request.get(options);*/
-            console.log(locations);
+
+            //console.log(locations);
             // Database stuff - reference to database
             var db = admin.database();
             var ref = db.ref("/");
 
             // Attach an asynchronous callback to read the data at our posts reference
-            locations.forEach((location) => {
+            locations.forEach(async (location) => {
                 let lat = location[0];
                 let lng = location[1];
-                let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
-                var locRef = ref.child(name);
-                locRef.set(lat + ", " + lng);
+
+                //"https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE"
+                const baseUrl = 'https://api.climacell.co/v3/weather/realtime';
+                const queryString = '?lat=' + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,wind_direction:degrees,fire_index&apikey=RKirrS8unzFgPtQWVChPhMzdnjhTpJmE";
+                //var options = {
+                //    uri: baseUrl + queryString,
+                //};
+                //API KEY: RKirrS8unzFgPtQWVChPhMzdnjhTpJmE
+                ftch(baseUrl + queryString).then((resp : any) => resp.json())
+                .then(function(data : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(location[0] + "," + location[1] + "," + data.fire_index.value);
+                }).catch(function(error : any) {
+                    let name = location[0].toString().replace('.', '') + location[1].toString().replace('.', '');
+                    var locRef = ref.child(name);
+                    locRef.set(error.toString());
+                });
+                //const result = await request.get(options).json();
             });
             
 
