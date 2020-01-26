@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms'
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AutomcompleteComponent } from './automcomplete/automcomplete.component';
 import { PrecipitationComponent } from './precipitation/precipitation.component';
+import { TemperatureComponent } from './temperature/temperature.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { PrecipitationComponent } from './precipitation/precipitation.component'
     NavbarComponent,
     AirQualityComponent,
     AutomcompleteComponent,
-    PrecipitationComponent
+    PrecipitationComponent,
+    TemperatureComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
