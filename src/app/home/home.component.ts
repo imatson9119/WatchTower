@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
               "value": value.data.indexes.baqi.aqi
             }
           ];
+          this.dataServer.setAirQualityColor();
           airQualitySub.unsubscribe();
         });
     
