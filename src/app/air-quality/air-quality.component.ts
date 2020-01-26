@@ -10,14 +10,14 @@ import { DataService } from '../data.service';
 })
 export class AirQualityComponent implements OnInit{
 
-  single: any[];
+  test: any[];
   legend: boolean = true;
   legendPosition: string = 'below';
-  ngOnInit(){
-    this.single = [
+  public ngOnInit(){
+    this.test = [
       {
         "name": "Air Quality",
-        "value": this.dataService.airQuality
+        "value": 100
       }
     ];
   }
@@ -39,5 +39,7 @@ export class AirQualityComponent implements OnInit{
 
   onDeactivate(data): void {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+  }
+  changeData(){
   }
 }

@@ -10,7 +10,7 @@ import { DataService } from '../data.service';
 export class HomeComponent implements OnInit {
 
   currentAddress = "";
-  
+
   constructor(public http : HttpClient, public dataServer: DataService) { }
 
   ngOnInit() {
@@ -34,7 +34,12 @@ export class HomeComponent implements OnInit {
         .subscribe((value : any) => {
           console.log(value);
           console.log(value.data.indexes.baqi.aqi);
-          this.dataServer.airQuality = value.data.indexes.baqi.aqi;
+          this.dataServer.single = [
+            {
+              "name": "Air Quality",
+              "value": value.data.indexes.baqi.aqi
+            }
+          ];
           airQualitySub.unsubscribe();
         });
     

@@ -6,5 +6,14 @@ import { Injectable } from '@angular/core';
 export class DataService {
 
   constructor() { }
-  airQuality: number = 100;
+  single = [
+    {
+      "name": "Air Quality",
+      "value": 100
+    }
+  ];
+
+  setAirQuality(){
+
+  }
 }
