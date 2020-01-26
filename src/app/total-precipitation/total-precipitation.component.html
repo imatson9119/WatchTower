@@ -1,1 +1,15 @@
-<p>total-precipitation works!</p>
+<ngx-charts-bar-vertical
+  [view]="[100,200]"
+  [scheme]="colorScheme"
+  [results]="this.dataService.tRainfall"
+  [gradient]="false"
+  [xAxis]="false"
+  [yAxis]="showYAxis"
+  [yScaleMax] = "50"
+  [customColors] = "color"
+  [legend]="false"
+  [showXAxisLabel]="false"
+  [showYAxisLabel]="false"
+  (select)="onSelect($event)">
+</ngx-charts-bar-vertical>
+<div class = temp>{{this.dataService.roundedtRainFall}}mm</div>

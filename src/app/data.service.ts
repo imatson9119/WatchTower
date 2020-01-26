@@ -30,6 +30,12 @@ export class DataService {
       value: "25"
     }
   ];
+  tRainfall = [
+    {
+      name: "Total Rainfall",
+      value: "100"
+    }
+  ];
   precip = [
     {
       "name": "Precipitation",
@@ -42,7 +48,7 @@ export class DataService {
     }
   ];
 
-  
+  roundedtRainFall = 100;
   roundedTemp = 25;
   aqMessage = "Excellent";
   const mapProperties = {

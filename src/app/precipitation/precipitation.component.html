@@ -7,8 +7,9 @@
   [showYAxisLabel]="true"
   [xAxis]="true"
   [yAxis]="yAxis"
+  [yScaleMax]="100"
   [xAxisLabel]="xAxisLabel"
-  [yAxisLabel]="'Inches'"
+  [yAxisLabel]="'(mm)'"
   [timeline]="timeline"
   [results]="this.dataService.precip"
   (select)="onSelect($event)">

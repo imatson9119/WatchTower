@@ -75,6 +75,7 @@ export class HomeComponent implements OnInit {
         .subscribe((value : any) => {
           console.log("PRECIP");
           console.log(value.series);
+          let tRainFall = 0;
           let objs = [{
             "name" : "Precipitation",
             "series": [{"name": "","value": 0}]
@@ -83,9 +84,12 @@ export class HomeComponent implements OnInit {
           value.series.forEach((elem: any) => {
             let name = elem.validDate.substr(5,5);
             let value = elem.value;
+            tRainFall += elem.value;
             objs[0].series.push({"name":name,"value":value});
           });
+          this.dataService.tRainfall = [{"name":"Total Rainfall","value":""+ tRainFall}]
           this.dataService.precip = objs;
+          this.dataService.roundedtRainFall = Math.round(tRainFall);
           pastWeatherSub.unsubscribe();
         });
 
