@@ -87,7 +87,17 @@ export class DataService {
       ]
     }
   ];
-
+  humidity = [
+    {
+      name: "Humidity",
+      value: "50"
+    },
+    {
+      name: "Humidity1",
+      value: "50"
+    },
+  ]
+  roundedHumidity = 50;
   roundedtRainFall = 100;
   roundedTemp = 25;
   aqMessage = "Excellent";
