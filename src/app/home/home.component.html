@@ -9,8 +9,10 @@
         <div class = inside [ngStyle]="{'width': this.dataService.loading + '%'}"></div>
     </div>
     <div class=row>
+        <div class ='card map fade-in one' style = "width: 100%;height:auto;margin-bottom:0px;">
+            <app-map style="flex:1"></app-map>
+        </div>
         
-        <app-map style="flex:1"></app-map>
         <app-nearest-fire style = "width:100%; margin-left: 20px; margin-right: 20px;" class = 'fade-in two'></app-nearest-fire>
         <div class ='card long fade-in three'>
             <div class = card-header>
