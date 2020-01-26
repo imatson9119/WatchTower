@@ -22,8 +22,20 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.onRefresh();
+  }
+
+  onRefresh(){
+
+
+    //if(marker != null) {
+      //marker.setMap(this.map);
+      //console.log("Markers displayed");
+    //}
+    this.map = new google.maps.Map(this.mapElement.nativeElement,    this.dataService.mapProperties);
+
     var image = {
-      url: 'https://icons-for-free.com/iconfiles/png/512/element+fire+icon-1320166151963997842.png',
+      url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
       // This marker is 20 pixels wide by 32 pixels high.
       size: new google.maps.Size(20, 32),
       // The origin for this image is (0, 0).
@@ -34,38 +46,28 @@ export class MapComponent implements OnInit {
     // Shapes define the clickable region of the icon. The type defines an HTML
     // <area> element 'poly' which traces out a polygon as a series of X,Y points.
     // The final coordinate closes the poly by connecting to the first coordinate.
-    var shape = {
+    var shape: any = {
       coords: [1, 1, 1, 20, 18, 20, 18, 1],
       type: 'poly'
     };
-    for (var i = 0; i < beaches.length; i++) {
-      var beach = beaches[i];
+    console.log("FIRES");
+    console.log(this.dataService.nearbyFires);
+    for (var i = 0; i < this.dataService.nearbyFires.length; i++) {
+      var fire = this.dataService.nearbyFires[i];
       var marker = new google.maps.Marker({
-        position: {lat: beach[1], lng: beach[2]},
+        position: {lat: parseFloat(fire[0]), lng: parseFloat(fire[1])},
         map: this.map,
-        icon: image,
-        title: "",
-        zIndex: 3
+        //icon: image,
+        //shape: shape,
+        title: "check",
+        zIndex: 35
       });
+      marker.setMap(this.map);
     }
 
-    marker.setMap(this.map);
-    this.onRefresh();
-  }
-
-  onRefresh(){  
-    this.map = new google.maps.Map(this.mapElement.nativeElement,    this.dataService.mapProperties);
-
-
-
     
-    var marker = new google.maps.Marker({
-      position: new google.maps.LatLng(-25.7, 134.3) ,
-      map: this.map,
-      title: 'Hello World!'
-    });
 
-    marker.setMap(this.map);
+
 
     let sub = this.database.list<any>("/").valueChanges().subscribe((values : any) => {
       console.log("Test");
@@ -74,7 +76,6 @@ export class MapComponent implements OnInit {
       console.log(values);
       values.forEach((value : string) => {
         let elems = value.split(",");
-        console.log(elems[0] + " " + elems[1] + " " + elems[2]);
         let obj = {
           location: new google.maps.LatLng(parseFloat(elems[0]), parseFloat(elems[1])), 
           weight:1*parseFloat(elems[2])
