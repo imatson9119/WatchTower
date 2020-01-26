@@ -17,6 +17,9 @@ import { TemperatureComponent } from './temperature/temperature.component';
 import { MapComponent } from './map/map.component';
 import { TotalPrecipitationComponent } from './total-precipitation/total-precipitation.component';
 import { HumidityComponent } from './humidity/humidity.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database'
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,9 @@ import { HumidityComponent } from './humidity/humidity.component';
     BrowserAnimationsModule,
     MatInputModule,
     FormsModule,
-    NgxChartsModule
+    NgxChartsModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [],
   bootstrap: [AppComponent]
