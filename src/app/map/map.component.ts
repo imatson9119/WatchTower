@@ -24,16 +24,16 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.map = new google.maps.Map(this.mapElement.nativeElement,    this.dataService.mapProperties);
     let sub = this.database.list<any>("/").valueChanges().subscribe((values : any) => {
-      console.log("Test");
+      //console.log("Test");
       let heatMapData = [];
-      console.log("VALUES");
-      console.log(values);
+      //console.log("VALUES");
+      //console.log(values);
       values.forEach((value : string) => {
         let elems = value.split(",");
-        console.log(elems[0] + " " + elems[1] + " " + elems[2]);
+        //console.log(elems[0] + " " + elems[1] + " " + elems[2]);
         let obj = {
           location: new google.maps.LatLng(parseFloat(elems[0]), parseFloat(elems[1])), 
-          weight:1000*parseFloat(elems[2])
+          weight:1*parseFloat(elems[2])
         };
 
         heatMapData.push(obj);
@@ -45,7 +45,7 @@ export class MapComponent implements OnInit {
       });
 
       heatMap.setOptions({data:heatMapData,
-        radius:5,
+        radius:1.2,
         dissipating:false,
       });
       heatMap.setMap(this.map);
@@ -58,16 +58,16 @@ export class MapComponent implements OnInit {
     this.map = new google.maps.Map(this.mapElement.nativeElement,    this.dataService.mapProperties);
 
     let sub = this.database.list<any>("/").valueChanges().subscribe((values : any) => {
-      console.log("Test");
+      //console.log("Test");
       let heatMapData = [];
-      console.log("VALUES");
-      console.log(values);
+      //console.log("VALUES");
+      //console.log(values);
       values.forEach((value : string) => {
         let elems = value.split(",");
-        console.log(elems[0] + " " + elems[1] + " " + elems[2]);
+        //console.log(elems[0] + " " + elems[1] + " " + elems[2]);
         let obj = {
           location: new google.maps.LatLng(parseFloat(elems[0]), parseFloat(elems[1])), 
-          weight:1000*parseFloat(elems[2])
+          weight:1*parseFloat(elems[2])
         };
 
         heatMapData.push(obj);
@@ -79,7 +79,7 @@ export class MapComponent implements OnInit {
       });
 
       heatMap.setOptions({data:heatMapData,
-        radius:10,
+        radius:0,
         dissipating:true
       });
       heatMap.setMap(this.map);
