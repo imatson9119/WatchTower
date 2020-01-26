@@ -12,6 +12,12 @@ export class DataService {
       "value": 100
     }
   ];
+  tColor = [
+    {
+      name: "Temperature (C)",
+      value: 'rgb(255,150,150)'
+    }
+  ];
   aqColor = [
     {
       name: "Air Quality",
@@ -28,6 +34,26 @@ export class DataService {
   aqMessage = "Excellent";
   updateTempColor(){
     
+    
+    if(this.roundedTemp >= 22){
+      let critValH = Math.max(0,150-7*(this.roundedTemp-22));
+      this.tColor = [
+        {
+          name: "Temperature (C)",
+          value: "rgb(255," + critValH + ',' + critValH + ")"
+        }
+      ];
+    }
+    else{
+      let critValC = Math.max(0,200-6*(22-this.roundedTemp));
+      this.tColor = [
+        {
+          name: "Temperature (C)",
+          value: "rgb(" + critValC + "," + critValC + ",255)"
+        }
+      ];
+      
+    }console.log(this.tColor)
   }
   setAirQualityColor(){
     let value = this.single[0].value;
