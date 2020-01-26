@@ -8,7 +8,7 @@ import { } from '@types/googlemaps';
       <input class="input"
         type="text"
         [(ngModel)]="autocompleteInput"
-        #addresstext style="padding: 12px 20px; border: 1px solid #ccc; width: 400px"
+        #addresstext style="height: 40px; width: 100%; border: none; outline:none; font-size: 20px;"
         >
     `,
 })

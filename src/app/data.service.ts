@@ -18,6 +18,7 @@ export class DataService {
       value: '#00c853'
     }
   ];
+  aqMessage = "Excellent";
   setAirQualityColor(){
     let value = this.single[0].value;
     if(value >= 80){
@@ -27,6 +28,7 @@ export class DataService {
           value: '#00c853'
         }
       ];
+      this.aqMessage = "Excellent";
     }
     else if(value >= 60){
       this.aqColor = [
@@ -35,6 +37,7 @@ export class DataService {
           value: '#6ad555'
         }
       ];
+      this.aqMessage = "Good";
     }
     else if(value >= 40){
       this.aqColor = [
@@ -43,6 +46,7 @@ export class DataService {
           value: '#ffd741'
         }
       ];
+      this.aqMessage = "Moderate";
     }
     else if(value >= 20){
       this.aqColor = [
@@ -51,6 +55,7 @@ export class DataService {
           value: '#ffab40'
         }
       ];
+      this.aqMessage = "Low";
     }
     else{
       this.aqColor = [
@@ -59,6 +64,7 @@ export class DataService {
           value: '#ff7338'
         }
       ];
+      this.aqMessage = "Poor";
     }
 
   }
