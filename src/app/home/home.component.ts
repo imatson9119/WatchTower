@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
           pastWeatherSub.unsubscribe();
         });
 
-        let currentWeatherSub = this.http.get("https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index&apikey=kKGWvhbvo24tF2BELO9ErG2j1PH4YLon")
+        let currentWeatherSub = this.http.get("https://api.climacell.co/v3/weather/realtime?lat=" + lat + "&lon=" + lng + "&unit_system=si&fields=temp,wind_speed,visibility,wind_direction:degrees,fire_index,humidity&apikey=kKGWvhbvo24tF2BELO9ErG2j1PH4YLon")
         .subscribe((value : any) => {
           this.dataService.temp = [
             {
