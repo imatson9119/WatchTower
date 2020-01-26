@@ -26,6 +26,9 @@ export class DataService {
   ];
   roundedTemp = 25;
   aqMessage = "Excellent";
+  updateTempColor(){
+    
+  }
   setAirQualityColor(){
     let value = this.single[0].value;
     if(value >= 80){
