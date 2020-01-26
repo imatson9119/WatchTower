@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   currentAddress = "";
   
-  constructor(public http : HttpClient) { }
+  constructor(public http : HttpClient, public dataServer: DataService) { }
 
   ngOnInit() {
     this.onSearch();
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit {
         .subscribe((value : any) => {
           console.log(value);
           console.log(value.data.indexes.baqi.aqi);
+          this.dataServer.airQuality = value.data.indexes.baqi.aqi;
           airQualitySub.unsubscribe();
         });
     

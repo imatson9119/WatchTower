@@ -11,7 +11,6 @@ import { single } from './data';
 export class AirQualityComponent{
 
   single: any[];
-  view: any[] = [500, 400];
   legend: boolean = true;
   legendPosition: string = 'below';
 
