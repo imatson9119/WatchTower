@@ -21,6 +21,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database'
 import { environment } from 'src/environments/environment';
 import { NearestFireComponent } from './nearest-fire/nearest-fire.component';
+import { InfoComponent } from './info/info.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { NearestFireComponent } from './nearest-fire/nearest-fire.component';
     MapComponent,
     TotalPrecipitationComponent,
     HumidityComponent,
-    NearestFireComponent
+    NearestFireComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,
