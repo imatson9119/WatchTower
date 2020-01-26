@@ -16,6 +16,7 @@ import { PrecipitationComponent } from './precipitation/precipitation.component'
 import { TemperatureComponent } from './temperature/temperature.component';
 import { MapComponent } from './map/map.component';
 import { TotalPrecipitationComponent } from './total-precipitation/total-precipitation.component';
+import { HumidityComponent } from './humidity/humidity.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { TotalPrecipitationComponent } from './total-precipitation/total-precipi
     PrecipitationComponent,
     TemperatureComponent,
     MapComponent,
-    TotalPrecipitationComponent
+    TotalPrecipitationComponent,
+    HumidityComponent
   ],
   imports: [
     BrowserModule,

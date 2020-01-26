@@ -6,6 +6,15 @@
         <AutocompleteComponent style class="input" (setAddress)="getAddress($event)" addressType="geocode"></AutocompleteComponent>
     </div>
     <div class=row>
+        <div class ='card map' style = "width: 100%;height:auto;margin-bottom:10px;">
+            <div class = card-header>
+                <i class="material-icons">
+                    whatshot
+                </i>
+                Fire Map
+            </div>
+            <app-map style="flex:1"></app-map>
+        </div>
         <div class ='card long'>
             <div class = card-header>
                 <i class="material-icons">
@@ -42,14 +51,13 @@
             </div>
             <app-temperature style="flex:1"></app-temperature>
         </div>
-        <div class ='card map' style = "width: 100%;height:auto;margin-bottom:10px;">
+        <div class ='card'>
             <div class = card-header>
                 <i class="material-icons">
-                    whatshot
+                    brightness_high
                 </i>
-                Fire Map
+                Humidity
             </div>
-            <app-map style="flex:1"></app-map>
+            <app-humidity style="flex:1"></app-humidity>
         </div>
-    
 </div>
