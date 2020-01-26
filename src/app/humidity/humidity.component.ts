@@ -2,6 +2,7 @@ import { Component, NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { single } from './data';
+import { DataService } from '../data.service';
 @Component({
   selector: 'app-humidity',
   templateUrl: './humidity.component.html',
@@ -26,7 +27,7 @@ export class HumidityComponent implements OnInit {
     domain: ['#5AA454', '#cae0c8', '#C7B42C', '#AAAAAA']
   };
 
-  constructor() {
+  constructor(public dataService: DataService) {
     Object.assign(this, { single });
   }
 }
