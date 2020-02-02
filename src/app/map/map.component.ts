@@ -77,14 +77,18 @@ export class MapComponent implements OnInit {
       console.log("VALUES");
       console.log(values);
       values.forEach((value : string) => {
-        let elems = value.split(",");
-        let obj = {
-          location: new google.maps.LatLng(parseFloat(elems[0]), parseFloat(elems[1])), 
-          weight:1*parseFloat(elems[2])
-        };
-
-        heatMapData.push(obj);
-
+        if(value.startsWith("Fetch")) {
+          //Fetch Error occured on API call; skip data point
+        } else {
+          let elems = value.split(",");
+          let obj = {
+            location: new google.maps.LatLng(parseFloat(elems[0]), parseFloat(elems[1])), 
+            weight:1*parseFloat(elems[2])
+          };
+  
+          heatMapData.push(obj);  
+        }
+        
       });
 
       let heatMap = new google.maps.visualization.HeatmapLayer({
