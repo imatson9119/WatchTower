@@ -1,27 +1,13 @@
-# WatchTower
+# Watch Tower
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.3.
+Watch Tower is a web application developed for TAMUHack 2020. It was made in response to USAA's challenge to make something that could help in the response to the Austrailian bush fires that occurred in the Spring of 2020.
 
-## Development server
+Mainly, the app served as an interactive dashboard to alert users of nearby fires, their current risk of new fires appearing in their area, and various other atmospheric and environmental data that could be impacted by fires. Unfortunately, the app had to be shut down shortly after completion of TAMUHack 2020 due to lost access to certain APIs.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# Solution
 
-## Code scaffolding
+The front-end of Watch Tower was built using the Angular web framework, and the back-end was built with and hosted on Google Firebase.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The data for this project is dependent upon several different APIs, and being able to search for specific addresses required many real-time updates to the web app. Often times, due to our extensive use of asynchronous functions to accomplish the HTTP requests, this resulted in some of the data not being updated at the proper time.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+The heatmap and UI are the things we are most proud of. Collecting enough data for and implementing the heatmap was a complex process that involved tying several different APIs, Google Firebase Functions/Realtime Database, and the Google Maps API together. We believe we ended up with effective, practical, and cool looking map as a result!
